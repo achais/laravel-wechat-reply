@@ -1,6 +1,9 @@
 <h1 align="center"> laravel-wechat-reply </h1>
 
-<p align="center"> Wechat reply handing for Laravel 5.5 and up.</p>
+<p align="center"> 可视化配置微信公众号自动回复规则，自动匹配回复消息。即将支持：可视化页面、匹配自定义处理方法. 
+</p>
+
+![StyleCI build status](https://github.styleci.io/repos/179957764/shield) 
 
 ## 环境要求
 
@@ -20,38 +23,70 @@ use Achais\LaravelWechatReply\Models\WeixinReply;
 use Achais\LaravelWechatReply\Models\WeixinKeyword;
 use Achais\LaravelWechatReply\WechatReply;
 
-// 回复规则
+// ====== 规则 ======
+
+// 查看全部规则
 $rules = WeixinRule::all();
-$rule = WeixinRule::create(['rule_name' => '规则一', 'reply_mode' => 'random']); // 随机回复一个匹配的消息
-$rule = WeixinRule::create(['rule_name' => '规则二', 'reply_mode' => 'all']); // 回复所有匹配的消息
+
+// 创建随机回复一个匹配消息的规则, 名称已存在会报错
+$rule = WeixinRule::create(['rule_name' => '规则一', 'reply_mode' => 'random']);
+
+// 创建回复全部匹配消息的规则, 名称已存在会报错
+$rule = WeixinRule::create(['rule_name' => '规则二', 'reply_mode' => 'all']);
+
+// 查找或创建规则
 $rule = WeixinRule::findOrCreate('规则三', 'random');
 
-$ruleOne = WeixinRule::findById(1); // 根据 ID 查找规则
-$ruleOne = WeixinRule::findByName('规则一'); // 根据 $ruleName 查找规则, 因为规则中名称唯一所以提供查找
+// 根据 ID 查找规则
+$ruleOne = WeixinRule::findById(1);
 
-// 关键词
-$keywordOne = WeixinKeyword::create(['keyword' => '关键词一', 'full_match' => true], $ruleOne); // 全匹配, 关联 "规则一"
-$keywordOne = WeixinKeyword::findById(1);
+// 根据 名称 查找规则, 因为规则中名称唯一所以提供查找功能
+$ruleOne = WeixinRule::findByName('规则一');
 
-$keywordTwo = WeixinKeyword::create(['keyword' => '关键词二', 'full_match' => false], $ruleOne); // 半匹配, 关联 "规则一"
-$keywordTwo = WeixinKeyword::findById(2); // 根据 ID 查找关键词
 
-// 回复消息, 更多`消息类型`有待补充...
+// ====== 关键词 ======
+
+// 创建一个需要全匹配的关键词, 关联 "规则一"
+$keywordOne = WeixinKeyword::create(['keyword' => '关键词一', 'full_match' => true], $ruleOne);
+
+// 创建一个需要半匹配(模糊搜索)的关键词, 关联 "规则一"
+$keywordTwo = WeixinKeyword::create(['keyword' => '关键词二', 'full_match' => false], $ruleOne);
+
+// 根据 ID 查找关键词
+$keywordTwo = WeixinKeyword::findById(2);
+
+
+// ====== 回复消息, 更多`消息类型`有待补充 ======
+
+// 创建文本内容的回复消息, 关联 "规则一"
 $reply = WeixinReply::create(['type' => 'text', 'content' => '你好'], $ruleOne); // 文字回复, 关联 "规则一"
-$reply = WeixinReply::create(['type' => 'text', 'content' => '嗨!'], $ruleOne); // 文字回复, 关联 "规则一"
-$reply = WeixinReply::create(['type' => 'image', 'content' => '永久素材 MEDIA_ID'], $ruleOne); // 图片回复, 关联 "规则一"
-$replyOne = WeixinReply::findById(1); // 根据 ID 查找回复消息
 
-// 关键词自动匹配回复消息
+// 创建图片内容的回复消息, 关联 "规则一"
+$reply = WeixinReply::create(['type' => 'image', 'content' => '永久素材 MEDIA_ID'], $ruleOne);
+
+// 创建图文内容的回复消息, 关联 "规则一"
+$reply = WeixinReply::create(['type' => 'news', 'content' => '图文内容'], $ruleOne);
+
+// 根据 ID 查找回复消息
+$replyOne = WeixinReply::findById(1);
+
+
+// ====== 关键词匹配功能 ======
+
+// 收到用户消息 "二"
 $keyword = '二';
-// 你会从 "你好", "嗨!", "图片消息" 中随机收到一个
-$replies = WechatReply::query($keyword); // 返回 WechatReply 对象集合
+
+// 你会从 "你好", "图片消息", "图文消息" 中随机收到一个消息, 返回 WechatReply 对象集合
+$replies = WechatReply::query($keyword);
+
+
+// ====== 关键词匹配功能 ======
 
 // 删除回复、关键词
 WeixinKeyword::deleteById(1);
 WeixinReply::deleteById(1);
 
-// 删除规则 (规则删除后关联的回复和关键词也自动删除了)
+// 删除规则 (关联的回复和关键词也自动删除)
 WeixinRule::deleteById(1);
 WeixinRule::deleteByName('规则二');
 ```
