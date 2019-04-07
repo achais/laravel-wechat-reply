@@ -29,21 +29,19 @@ class WechatReply
         })->orderBy('id', 'desc')->first();
 
         if (!$rule) {
-            return collect();
+            return null;
         }
+
+        $replies = null;
 
         if (WeixinRule::REPLY_MODE_ALL === $rule->reply_mode) {
             $replies = $rule->replies()->get();
-
-            return $replies ?: collect();
         }
 
         if (WeixinRule::REPLY_MODE_RANDOM === $rule->reply_mode) {
-            $reply = $rule->replies()->orderByRaw('RAND()')->first();
-
-            return $reply ? collect([$reply]) : collect();
+            $replies = $rule->replies()->orderByRaw('RAND()')->limit(1)->get();
         }
 
-        return collect();
+        return $replies;
     }
 }

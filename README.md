@@ -79,6 +79,14 @@ $keyword = '二';
 // 你会从 "你好", "图片消息", "图文消息" 中随机收到一个消息, 返回 WechatReply 对象集合
 $replies = WechatReply::query($keyword);
 
+/**
+Collection {#893 ▼
+  #items: array:1 [▼
+    0 => WeixinReply {#891 ▶}
+  ]
+}
+*/
+
 
 // ====== 删除关联关系 ======
 
