@@ -1,0 +1,44 @@
+{
+    "name": "achais\/laravel-wechat-reply",
+    "description": "Wechat reply handing for Laravel 5.5 and up",
+    "keywords": [
+        "wechat",
+        "laravel",
+        "reply"
+    ],
+    "homepage": "https://github.com/achais/laravel-wechat-reply",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "achais",
+            "email": "i@achais.com"
+        }
+    ],
+    "require": {
+        "php" : ">=7.0",
+        "laravel/framework": "^5.5"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7|6.2|^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Achais\\LaravelWechatReply\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Achais\\LaravelWechatReply\\Test\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Achais\\LaravelWechatReply\\ServiceProvider"
+            ]
+        }
+    }
+}
