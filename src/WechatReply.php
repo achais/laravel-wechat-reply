@@ -1,13 +1,15 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: achais
- * Date: 2019-04-07
- * Time: 18:27
+
+/*
+ * This file is part of the achais/laravel-wechat-reply.
+ *
+ * (c) achais <i@achais.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
  */
 
 namespace Achais\LaravelWechatReply;
-
 
 use Achais\LaravelWechatReply\Models\WeixinRule;
 
@@ -26,15 +28,19 @@ class WechatReply
             ]);
         })->orderBy('id', 'desc')->first();
 
-        if (!$rule) return collect();
+        if (!$rule) {
+            return collect();
+        }
 
-        if ($rule->reply_mode === WeixinRule::REPLY_MODE_ALL) {
+        if (WeixinRule::REPLY_MODE_ALL === $rule->reply_mode) {
             $replies = $rule->replies()->get();
+
             return $replies ?: collect();
         }
 
-        if ($rule->reply_mode === WeixinRule::REPLY_MODE_RANDOM) {
-            $reply = $rule->replies()->orderByRaw("RAND()")->first();
+        if (WeixinRule::REPLY_MODE_RANDOM === $rule->reply_mode) {
+            $reply = $rule->replies()->orderByRaw('RAND()')->first();
+
             return $reply ? collect([$reply]) : collect();
         }
 

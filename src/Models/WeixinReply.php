@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the achais/laravel-wechat-reply.
+ *
+ * (c) achais <i@achais.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Achais\LaravelWechatReply\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -7,13 +16,21 @@ use Illuminate\Database\Eloquent\Model;
 class WeixinReply extends Model
 {
     const TYPE_TEXT = 'text';
+
     const TYPE_IMAGE = 'image';
+
     const TYPE_VOICE = 'voice';
+
     const TYPE_VIDEO = 'video';
+
     const TYPE_MUSIC = 'music';
+
     const TYPE_NEWS = 'news';
+
     const TYPE_MP_NEWS = 'mpnews';
+
     const TYPE_MSG_MENU = 'msgmenu';
+
     const TYPE_WX_CARD = 'wxcard';
 
     protected $fillable = ['content'];

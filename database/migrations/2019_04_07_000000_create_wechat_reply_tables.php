@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the achais/laravel-wechat-reply.
+ *
+ * (c) achais <i@achais.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -8,8 +17,6 @@ class CreateWechatReplyTables extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
@@ -32,7 +39,7 @@ class CreateWechatReplyTables extends Migration
             $table->foreign('weixin_rule_id')->references('id')->on($tableNames['rules'])->onDelete('cascade');
         });
 
-        Schema::create($tableNames['replies'], function (Blueprint $table)  use ($tableNames) {
+        Schema::create($tableNames['replies'], function (Blueprint $table) use ($tableNames) {
             $table->increments('id');
             $table->string('type'); // appmsg,text,image,audio,video
             $table->string('content');
@@ -45,8 +52,6 @@ class CreateWechatReplyTables extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
