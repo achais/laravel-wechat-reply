@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class WeixinKeyword extends Model
 {
-    protected $fillable = ['keyword', 'full_match'];
+    protected $fillable = ['keyword', 'full_match', 'weixin_rule_id'];
 
     protected $casts = [
         'full_match' => 'boolean',
@@ -38,6 +38,17 @@ class WeixinKeyword extends Model
         }
 
         return $keyword;
+    }
+
+    public static function deleteById($id)
+    {
+        $keyword = self::query()->where('id', $id)->first();
+
+        if (!$keyword) {
+            throw KeywordDoesNotExist::withId($id);
+        }
+
+        return $keyword->delete();
     }
 
     public function rule()

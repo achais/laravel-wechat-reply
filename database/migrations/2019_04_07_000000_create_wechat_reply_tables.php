@@ -42,7 +42,7 @@ class CreateWechatReplyTables extends Migration
         Schema::create($tableNames['replies'], function (Blueprint $table) use ($tableNames) {
             $table->increments('id');
             $table->string('type'); // appmsg,text,image,audio,video
-            $table->string('content');
+            $table->text('content');
             $table->unsignedInteger('weixin_rule_id');
             $table->timestamps();
 

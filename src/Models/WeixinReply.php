@@ -11,6 +11,7 @@
 
 namespace Achais\LaravelWechatReply\Models;
 
+use Achais\LaravelWechatReply\Exceptions\ReplyDoesNotExist;
 use Illuminate\Database\Eloquent\Model;
 
 class WeixinReply extends Model
@@ -33,13 +34,35 @@ class WeixinReply extends Model
 
     const TYPE_WX_CARD = 'wxcard';
 
-    protected $fillable = ['content'];
+    protected $fillable = ['type', 'content', 'weixin_rule_id'];
 
     public static function create(array $attributes, WeixinRule $rule)
     {
         $attributes['weixin_rule_id'] = $rule->id;
 
         return static::query()->create($attributes);
+    }
+
+    public static function findById($id)
+    {
+        $reply = self::query()->where('id', $id)->first();
+
+        if (!$reply) {
+            throw ReplyDoesNotExist::withId($id);
+        }
+
+        return $reply;
+    }
+
+    public static function deleteById($id)
+    {
+        $reply = self::query()->where('id', $id)->first();
+
+        if (!$reply) {
+            throw ReplyDoesNotExist::withId($id);
+        }
+
+        return $reply->delete();
     }
 
     public function rule()
