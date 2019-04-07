@@ -80,7 +80,7 @@ $keyword = '二';
 $replies = WechatReply::query($keyword);
 
 
-// ====== 关键词匹配功能 ======
+// ====== 删除关联关系 ======
 
 // 删除回复、关键词
 WeixinKeyword::deleteById(1);
