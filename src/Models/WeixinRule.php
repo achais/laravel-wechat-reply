@@ -90,12 +90,14 @@ class WeixinRule extends Model
     public function giveKeyword(array $attributes)
     {
         $attributes['weixin_rule_id'] = $this->id;
+
         return WeixinKeyword::query()->create($attributes);
     }
 
     public function giveReply(array $attributes)
     {
         $attributes['weixin_rule_id'] = $this->id;
+
         return WeixinReply::query()->create($attributes);
     }
 
