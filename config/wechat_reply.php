@@ -25,4 +25,10 @@ return [
 
         'replies' => 'weixin_replies',
     ],
+
+    'auth' => [
+        'user' => env('WECHAT_REPLY_USER', 'admin'),
+
+        'password' => env('WECHAT_REPLY_PASSWORD', 'admin'),
+    ]
 ];
