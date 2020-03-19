@@ -12,6 +12,9 @@
 namespace Achais\LaravelWechatReply;
 
 use Achais\LaravelWechatReply\Models\WeixinRule;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class WechatReply
 {
@@ -43,5 +46,21 @@ class WechatReply
         }
 
         return $replies;
+    }
+
+    public static function check(Request $request)
+    {
+        $authUser = config('wechat_reply.auth.user');
+        $authPassword = config('wechat_reply.auth.password');
+        $authToken = $request->session()->get(config('wechat_reply.auth.token'));
+
+        return Hash::check($authUser . $authPassword, $authToken) ||
+            ($authUser == $request->user && $authPassword == $request->password);
+    }
+
+    public static function respondSession(Request $request)
+    {
+        $authToken = Hash::make(config('wechat_reply.auth.user') . config('wechat_reply.auth.password'));
+        $request->session()->put(config('wechat_reply.auth.token'), $authToken);
     }
 }

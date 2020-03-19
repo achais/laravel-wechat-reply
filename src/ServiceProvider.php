@@ -12,6 +12,7 @@
 namespace Achais\LaravelWechatReply;
 
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider as LaravelServiceProvider;
 
@@ -19,23 +20,21 @@ class ServiceProvider extends LaravelServiceProvider
 {
     use EventMap;
 
+    /**
+     * 启动
+     */
     public function boot()
     {
         $this->registerEvents();
         $this->registerRoutes();
         $this->registerResources();
+
+        $this->defineConfigPublishing();
+        $this->defineMigrationPublishing();
         $this->defineAssetPublishing();
 
-        $this->publishes([
-            \dirname(__DIR__).'/config/wechat_reply.php' => config_path('wechat_reply.php'),
-        ], 'config');
-
-        $this->publishes([
-            \dirname(__DIR__).'/database/migrations/' => database_path('migrations'),
-        ], 'migrations');
-
         if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(\dirname(__DIR__).'/migrations/');
+            $this->loadMigrationsFrom(\dirname(__DIR__) . '/database/migrations/');
         }
     }
 
@@ -53,35 +52,48 @@ class ServiceProvider extends LaravelServiceProvider
     protected function registerRoutes()
     {
         Route::group([
-            'domain' => config('wechat-reply.domain', null),
-            'prefix' => config('wechat-reply.path'),
+            'domain' => config('wechat_reply.domain', null),
+            'prefix' => config('wechat_reply.path'),
             'namespace' => 'Achais\LaravelWechatReply\Http\Controllers',
-            'middleware' => config('wechat-reply.middleware', 'web'),
+            'middleware' => config('wechat_reply.middleware', 'web'),
         ], function () {
-            $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+            $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
         });
     }
 
     protected function registerResources()
     {
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'wechat-reply');
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'wechat-reply');
+    }
+
+    public function defineConfigPublishing()
+    {
+        $this->publishes([
+            __DIR__ . '/../config/wechat_reply.php' => config_path('wechat_reply.php'),
+        ], 'config');
+    }
+
+    public function defineMigrationPublishing()
+    {
+        $this->publishes([
+            __DIR__ . '/../database/migrations/' => database_path('migrations'),
+        ], 'migrations');
     }
 
     public function defineAssetPublishing()
     {
         $this->publishes([
-            WECHAT_REPLY_PATH.'/public' => public_path('vendor/wechat-reply'),
-        ], 'wechat-reply-assets');
+            __DIR__ . '/../public' => public_path('vendor/wechat-reply'),
+        ], 'assets');
     }
 
+    /**
+     * 注册
+     */
     public function register()
     {
-        if (! defined('WECHAT_REPLY_PATH')) {
-            define('WECHAT_REPLY_PATH', realpath(__DIR__.'/../'));
-        }
-
         $this->mergeConfigFrom(
-            \dirname(__DIR__).'/config/wechat_reply.php',
+            __DIR__ . '/../config/wechat_reply.php',
             'wechat_reply'
         );
     }

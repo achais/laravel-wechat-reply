@@ -38,4 +38,5 @@ Route::prefix('api')->group(function () {
 });
 
 // Catch-all Route...
-Route::get('/{view?}', 'HomeController@index')->where('view', '(.*)')->name('horizon.index');
+Route::any('/auth', 'HomeController@auth')->name('wechat-reply.auth');
+Route::get('/{view?}', 'HomeController@index')->where('view', '(.*)')->name('wechat-reply.index');

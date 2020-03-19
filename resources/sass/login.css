@@ -1,0 +1,34 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+
+}
+#app {
+    width: 100%;
+    height: 100%;
+
+}
+
+.login__box {
+    position:absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+
+}
+
+
+.login__box_header {
+    margin: 0;
+    text-align:center;
+
+}
+
+.login__box_submit {
+    width: 100%;
+
+}

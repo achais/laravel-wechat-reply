@@ -26,9 +26,18 @@ return [
         'replies' => 'weixin_replies',
     ],
 
+    'domain' => null,
+
+    'path' => 'wechat-reply',
+
+    'middleware' => ['web'],
+
     'auth' => [
+        'token' => 'WRT',
+
         'user' => env('WECHAT_REPLY_USER', 'admin'),
 
         'password' => env('WECHAT_REPLY_PASSWORD', 'admin'),
-    ]
+    ],
+
 ];
