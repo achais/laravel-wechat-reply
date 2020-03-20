@@ -24,13 +24,18 @@ $ composer require achais/laravel-wechat-reply -vvv
     Achais\LaravelWechatReply\ServiceProvider::class,
 ],
 ```
-> 如果你的 laravel > 5.0 其实可以跳过这一步
+> 如果你的 laravel > 5.0 其实可以跳过上面这一步
 
 发布配置文件和静态文件
-```shell script
+```shell
 php artisan vendor:publish --provider="Achais\LaravelWechatReply\ServiceProvider"
 ```
 
+创建数据库表
+```shell
+php artisan migrate
+```
+> 每次执行 migrate 之前最好看一下当前状态, php artisan migrate:status 毕竟数据是无价的 
 
 ## 使用
 
