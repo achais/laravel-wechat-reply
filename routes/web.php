@@ -1,14 +1,22 @@
 <?php
 
+/*
+ * This file is part of the achais/laravel-wechat-reply.
+ *
+ * (c) achais <i@achais.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('api')->group(function () {
-
-    Route::get('/replies/rules','RepliesController@rules');//微信规则
-    Route::get('/replies/rules/show','RepliesController@rulesShow');//微信规则详情
-    Route::post('/replies/rules','RepliesController@rulesCreate');//微信规则创建
-    Route::put('/replies/rules','RepliesController@rulesUpdate');//微信规则编辑
-    Route::delete('/replies/rules','RepliesController@rulesDestroy');//微信规则删除
+    Route::get('/replies/rules', 'RepliesController@rules'); //微信规则
+    Route::get('/replies/rules/show', 'RepliesController@rulesShow'); //微信规则详情
+    Route::post('/replies/rules', 'RepliesController@rulesCreate'); //微信规则创建
+    Route::put('/replies/rules', 'RepliesController@rulesUpdate'); //微信规则编辑
+    Route::delete('/replies/rules', 'RepliesController@rulesDestroy'); //微信规则删除
 
     /*
     // Dashboard Routes...
