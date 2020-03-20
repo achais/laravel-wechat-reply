@@ -149,7 +149,7 @@
     </div>
 
     <div class="top">
-        <h3>关键词回复</h3>
+        <h3>自动回复</h3>
     </div>
     <div class="bottom">
 
