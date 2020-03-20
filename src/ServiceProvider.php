@@ -69,21 +69,21 @@ class ServiceProvider extends LaravelServiceProvider
     {
         $this->publishes([
             __DIR__.'/../config/wechat_reply.php' => config_path('wechat_reply.php'),
-        ], 'config');
+        ], 'wechat-reply-config');
     }
 
     public function defineMigrationPublishing()
     {
         $this->publishes([
             __DIR__.'/../database/migrations/' => database_path('migrations'),
-        ], 'migrations');
+        ], 'wechat-reply-migrations');
     }
 
     public function defineAssetPublishing()
     {
         $this->publishes([
-            __DIR__.'/../public' => public_path('vendor/wechat-reply'),
-        ], 'assets');
+            __DIR__.'/../public/' => public_path('vendor/wechat-reply'),
+        ], 'wechat-reply-assets');
     }
 
     /**
