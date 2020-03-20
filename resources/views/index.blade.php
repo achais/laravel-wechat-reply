@@ -238,8 +238,9 @@
                         <div v-if="replies.type === 'text'" class="ruleDetailDialog__replies_text">
                             ${replies.content}
                         </div>
-                        <el-button icon="el-icon-delete" size="mini" type="danger" circle plain
-                                   class="ruleEditDialog__minus" @click="minuReplies(index)"></el-button>
+                        <el-button icon="el-icon-edit" size="mini" circle plain class="ruleEditDialog__minus" @click="editReplies(replies.content, index)"></el-button>
+                        <el-button icon="el-icon-delete" size="mini" type="danger" circle plain class="ruleEditDialog__minus" @click="minuReplies(index)"></el-button>
+
                     </div>
                     <el-popover placement="right" trigger="hover">
                         <el-button icon="el-icon-plus" size="mini" circle slot="reference"></el-button>
@@ -403,12 +404,13 @@
 
             //-------------------------- 回复内容相关方法 ---------------------
             addReplies(type) {
-                if (this.ruleEdit.replies.length < 5) {
+                if(this.ruleEdit.replies.length < 5) {
                     if (type === 'text') {
                         this.ruleEdit.replies.push({
                             type: 'text',
                             content: ''
                         })
+                        this.textEdit = 'add';
                         this.textForm.textTmp = '';
                         this.addTextVisible = true;
                         this.$refs['addTextForm'] && this.$refs['addTextForm'].resetFields();
@@ -421,22 +423,39 @@
                 }
             },
             minuReplies(index) {
-                this.ruleEdit.replies.splice(index, 1);
+                this.ruleEdit.replies.splice(index,1);
+            },
+            editReplies(content, index) {
+                this.textEdit = 'edit';
+                this.textForm.textTmp = content;
+                this.textIndex = index;
+                this.addTextVisible = true;
             },
             addTextOK(formName) {
                 var _this = this;
-                _this.$refs[formName].validate(function (valid) {
+                _this.$refs[formName].validate(function(valid) {
                     if (valid) {
-                        _this.ruleEdit.replies[_this.ruleEdit.replies.length - 1].content = _this.textForm.textTmp;
-                        _this.addTextVisible = false;
+                        console.log(_this.textEdit);
+                        if (_this.textEdit === 'edit') {
+                            _this.ruleEdit.replies[_this.textIndex].content = _this.textForm.textTmp;
+                            _this.addTextVisible = false;
+                        } else {
+                            _this.ruleEdit.replies[_this.ruleEdit.replies.length - 1].content = _this.textForm.textTmp;
+                            _this.addTextVisible = false;
+                        }
+
                     } else {
                         return false;
                     }
                 });
             },
             addTextClose() {
-                this.ruleEdit.replies.splice(this.ruleEdit.replies.length - 1, 1);
-                this.addTextVisible = false;
+                if (this.textEdit === 'edit') {
+                    this.addTextVisible = false;
+                } else {
+                    this.ruleEdit.replies.splice(this.ruleEdit.replies.length - 1, 1);
+                    this.addTextVisible = false;
+                }
             },
 
             //-------------------------- 规则列表相关方法 ---------------------
