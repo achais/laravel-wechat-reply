@@ -14,7 +14,6 @@ namespace Achais\LaravelWechatReply;
 use Achais\LaravelWechatReply\Models\WeixinRule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 
 class WechatReply
 {
@@ -62,5 +61,10 @@ class WechatReply
     {
         $authToken = Hash::make(config('wechat_reply.auth.user') . config('wechat_reply.auth.password'));
         $request->session()->put(config('wechat_reply.auth.token'), $authToken);
+    }
+
+    public static function destroySession(Request $request)
+    {
+        $request->session()->remove(config('wechat_reply.auth.token'));
     }
 }

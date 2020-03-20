@@ -3,6 +3,13 @@
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('api')->group(function () {
+
+    Route::get('/replies/rules','RepliesController@rules');//微信规则
+    Route::get('/replies/rules/show','RepliesController@rulesShow');//微信规则详情
+    Route::post('/replies/rules','RepliesController@rulesCreate');//微信规则创建
+    Route::put('/replies/rules','RepliesController@rulesUpdate');//微信规则编辑
+    Route::delete('/replies/rules','RepliesController@rulesDestroy');//微信规则删除
+
     /*
     // Dashboard Routes...
     Route::get('/stats', 'DashboardStatsController@index')->name('horizon.stats.index');
@@ -39,4 +46,5 @@ Route::prefix('api')->group(function () {
 
 // Catch-all Route...
 Route::any('/auth', 'HomeController@auth')->name('wechat-reply.auth');
+Route::any('/logout', 'HomeController@logout')->name('wechat-reply.logout');
 Route::get('/{view?}', 'HomeController@index')->where('view', '(.*)')->name('wechat-reply.index');

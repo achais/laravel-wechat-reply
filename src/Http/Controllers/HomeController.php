@@ -4,18 +4,26 @@ namespace Achais\LaravelWechatReply\Http\Controllers;
 
 use Achais\LaravelWechatReply\WechatReply;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
 {
+    /**
+     * Dashboard
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         return view('wechat-reply::index');
     }
 
+    /**
+     * Login
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function auth(Request $request)
     {
-        // POST
         if ($request->isMethod('POST')) {
             if (WechatReply::check($request)) {
                 WechatReply::respondSession($request);
@@ -31,5 +39,16 @@ class HomeController extends Controller
         }
 
         return view('wechat-reply::auth');
+    }
+
+    /**
+     * Logout
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function logout(Request $request)
+    {
+        WechatReply::destroySession($request);
+        return redirect()->route('wechat-reply.auth')->with('info', '已退出登录');
     }
 }

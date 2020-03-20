@@ -27,6 +27,7 @@ mix.options({
   .version()
   .copy('resources/js/vue.js', 'public/js')
   .copy('resources/js/element.js', 'public/js')
+  .copy('resources/js/axios.min.js', 'public/js')
   .copy('resources/sass/element.css', 'public/css')
   .copy('resources/sass/login.css', 'public/css')
   .copy('resources/fonts', 'public/fonts')
