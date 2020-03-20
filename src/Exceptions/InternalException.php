@@ -13,5 +13,4 @@ namespace Achais\LaravelWechatReply\Exceptions;
 
 class InternalException extends \Exception
 {
-
 }

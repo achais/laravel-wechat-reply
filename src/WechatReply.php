@@ -53,13 +53,13 @@ class WechatReply
         $authPassword = config('wechat_reply.auth.password');
         $authToken = $request->session()->get(config('wechat_reply.auth.token'));
 
-        return Hash::check($authUser . $authPassword, $authToken) ||
+        return Hash::check($authUser.$authPassword, $authToken) ||
             ($authUser == $request->user && $authPassword == $request->password);
     }
 
     public static function respondSession(Request $request)
     {
-        $authToken = Hash::make(config('wechat_reply.auth.user') . config('wechat_reply.auth.password'));
+        $authToken = Hash::make(config('wechat_reply.auth.user').config('wechat_reply.auth.password'));
         $request->session()->put(config('wechat_reply.auth.token'), $authToken);
     }
 

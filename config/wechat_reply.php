@@ -39,5 +39,4 @@ return [
 
         'password' => env('WECHAT_REPLY_PASSWORD', 'admin'),
     ],
-
 ];
