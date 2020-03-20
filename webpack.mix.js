@@ -29,7 +29,6 @@ mix.options({
   .copy('resources/js/element.js', 'public/js')
   .copy('resources/js/axios.min.js', 'public/js')
   .copy('resources/sass/element.css', 'public/css')
-  .copy('resources/sass/login.css', 'public/css')
   .copy('resources/fonts', 'public/fonts')
   .copy('resources/img', 'public/img')
   .webpackConfig({

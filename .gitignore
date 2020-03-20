@@ -6,4 +6,3 @@ composer.lock
 .subsplit
 .php_cs.cache
 .idea
-/public
