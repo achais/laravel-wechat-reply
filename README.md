@@ -15,7 +15,36 @@
 $ composer require achais/laravel-wechat-reply -vvv
 ```
 
+## 配置
+
+在 config/app.php 中加入我们的 ServiceProvider
+```php
+'providers' => [
+    // Application Service Providers...
+    Achais\LaravelWechatReply\ServiceProvider::class,
+],
+```
+> 如果你的 laravel > 5.0 其实可以跳过这一步
+
+发布配置文件和静态文件
+```shell script
+php artisan vendor:publish --provider="Achais\LaravelWechatReply\ServiceProvider"
+```
+
+
 ## 使用
+
+### 自动回复编辑
+
+浏览器访问 /wechat-reply 默认用户名密码是 admin admin  
+你也可以通过在 .env 文件中添加  
+```
+WECHAT_REPLY_USER=your_username  
+WECHAT_REPLY_PASSWORD=your_password  
+```
+来自定义登录用户名和密码
+
+### 代码调用
 
 ```php
 use Achais\LaravelWechatReply\Models\WeixinRule;
