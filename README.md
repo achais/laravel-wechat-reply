@@ -24,7 +24,7 @@ $ composer require achais/laravel-wechat-reply -vvv
     Achais\LaravelWechatReply\ServiceProvider::class,
 ],
 ```
-> 如果你的 laravel > 5.0 其实可以跳过上面这一步
+> 如果你的 laravel >- 5.5 其实可以跳过上面这一步
 
 发布配置文件和静态文件
 ```shell
