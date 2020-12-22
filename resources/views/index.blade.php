@@ -661,8 +661,8 @@
                     url: "{{ config('wechat_reply.access_token_path') }}"
                 })
                     .then(function (res) {
-                        if (res && res.access_token) {
-                            window.open(`https://wei.jiept.com/Home/Menu/${res.access_token}`)
+                        if (res) {
+                            window.open(`https://wei.jiept.com/Home/Menu/${res}`)
                         } else {
                             _this.$message.error('appid有误')
                         }
