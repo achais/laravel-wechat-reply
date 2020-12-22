@@ -79,7 +79,7 @@
                     <el-input type="password" v-model="loginForm.password" placeholder="请输入密码" @keyup.enter.native="submitForm('loginForm')" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button type="success" @click="submitForm('loginForm')" class="login__box_submit">立即登录</el-button>
+                    <el-button type="primary" @click="submitForm('loginForm')" class="login__box_submit">立即登录</el-button>
                 </el-form-item>
             </el-form>
 
