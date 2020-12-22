@@ -19,8 +19,9 @@
     <link rel="stylesheet" href="{{ asset(mix('/css/element.css', 'vendor/wechat-reply')) }}">
     <style>
         [v-cloak] {
-            display:none
+            display: none
         }
+
         html,
         body {
             width: 100%;
@@ -28,6 +29,7 @@
             margin: 0;
             padding: 0;
         }
+
         #app {
             box-sizing: border-box;
             width: 900px;
@@ -35,6 +37,7 @@
             margin: 0 auto;
             padding: 60px 0 20px;
         }
+
         .navbar {
             position: fixed;
             left: 0;
@@ -47,70 +50,93 @@
             height: 60px;
             padding: 0 20px;
             background: #fff;
-            box-shadow: 0 1px 5px 0 rgba(0,0,0,.2);
+            box-shadow: 0 1px 5px 0 rgba(0, 0, 0, .2);
         }
+
         .nvabar__logout {
             color: #F56C6C;
         }
+
         .nvabar__logout:hover {
             color: #dd6161;
         }
+
         .top {
             padding: 20px 0;
             border-bottom: 1px solid #ccc;
         }
+
         .top h3 {
             margin: 0;
         }
+
         .pagination {
             padding-top: 20px;
             text-align: center;
         }
+
         .buttons {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 20px 0;
         }
+
+        .buttons .buttons__tips {
+            font-size: 16px;
+            color: #dcdfe6;
+            vertical-align: sub;
+            display: inline;
+        }
+
         .buttons__search_input {
             width: 260px;
         }
+
         .el-form-item__label {
             color: #000;
             font-weight: 600;
         }
+
         .ruleEditDialog .el-form-item__content {
             display: flex;
             align-items: center;
             height: 40px;
         }
+
         .flexnone .el-form-item__content {
             align-items: flex-start;
             height: auto;
         }
+
         .ruleEditDialog__item {
             display: flex;
             align-items: center;
             height: 40px;
             width: 660px;
         }
+
         .ruleDetailDialog__replies {
             display: flex;
             align-items: center;
             margin-bottom: 10px;
         }
+
         .ruleDetailDialog__replies_text {
             width: 660px;
             padding: 10px 0;
             border-bottom: 1px solid #eee;
         }
+
         .ruleEditDialog__select {
             width: 100px;
         }
+
         .ruleEditDialog__add,
         .ruleEditDialog__minus {
             margin-left: 10px;
         }
+
         .ruleEditDialog__replies {
             list-style: none;
             display: flex;
@@ -118,14 +144,17 @@
             margin: 0;
             padding: 0;
         }
+
         .ruleEditDialog__replies li {
             padding: 0 8px;
             cursor: pointer;
             color: #ccc;
         }
+
         .ruleEditDialog__replies li.enable {
             color: #000;
         }
+
         .ruleEditDialog__replies li.enable:hover {
             color: #409EFF;
         }
@@ -144,20 +173,26 @@
 <div id="app" v-cloak>
     <div class="navbar">
         <a href="{{ route('wechat-reply.logout') }}">
-        <el-button type="text" class="nvabar__logout">退出登录</el-button>
+            <el-button type="text" class="nvabar__logout">退出登录</el-button>
         </a>
     </div>
 
-    <div class="top">
+    <div class="top" style="display: flex;justify-content: space-between;">
         <h3>自动回复</h3>
+        <el-button type="text" @click="skipMenuEidt">自定义菜单编辑</el-button>
     </div>
     <div class="bottom">
 
         <div class="buttons">
-            <el-input placeholder="请输入规则名称/关键词" v-model="searchName" size="mini" class="buttons__search_input">
-                <el-button slot="append" icon="el-icon-search" @click="getRules"
-                           class="buttons__search_icon"></el-button>
-            </el-input>
+            <div>
+                <el-input placeholder="请输入规则名称/关键词" v-model="searchName" size="mini" class="buttons__search_input">
+                    <el-button slot="append" icon="el-icon-search" @click="getRules"
+                               class="buttons__search_icon"></el-button>
+                </el-input>
+                <el-tooltip class="item" effect="dark" content="使用介绍：自动回复使用的关键词" placement="top-start">
+                    <i class="el-icon-question buttons__tips"></i>
+                </el-tooltip>
+            </div>
             <el-button type="success" size="mini" @click="addRules">新增规则</el-button>
         </div>
 
@@ -238,8 +273,10 @@
                         <div v-if="replies.type === 'text'" class="ruleDetailDialog__replies_text">
                             ${replies.content}
                         </div>
-                        <el-button icon="el-icon-edit" size="mini" circle plain class="ruleEditDialog__minus" @click="editReplies(replies.content, index)"></el-button>
-                        <el-button icon="el-icon-delete" size="mini" type="danger" circle plain class="ruleEditDialog__minus" @click="minuReplies(index)"></el-button>
+                        <el-button icon="el-icon-edit" size="mini" circle plain class="ruleEditDialog__minus"
+                                   @click="editReplies(replies.content, index)"></el-button>
+                        <el-button icon="el-icon-delete" size="mini" type="danger" circle plain
+                                   class="ruleEditDialog__minus" @click="minuReplies(index)"></el-button>
 
                     </div>
                     <el-popover placement="right" trigger="hover">
@@ -404,7 +441,7 @@
 
             //-------------------------- 回复内容相关方法 ---------------------
             addReplies(type) {
-                if(this.ruleEdit.replies.length < 5) {
+                if (this.ruleEdit.replies.length < 5) {
                     if (type === 'text') {
                         this.ruleEdit.replies.push({
                             type: 'text',
@@ -423,7 +460,7 @@
                 }
             },
             minuReplies(index) {
-                this.ruleEdit.replies.splice(index,1);
+                this.ruleEdit.replies.splice(index, 1);
             },
             editReplies(content, index) {
                 this.textEdit = 'edit';
@@ -433,7 +470,7 @@
             },
             addTextOK(formName) {
                 var _this = this;
-                _this.$refs[formName].validate(function(valid) {
+                _this.$refs[formName].validate(function (valid) {
                     if (valid) {
                         console.log(_this.textEdit);
                         if (_this.textEdit === 'edit') {
@@ -615,6 +652,21 @@
                     });
                      */
                 });
+            },
+            //-------------------------- 自定义菜单编辑方法 ---------------------
+            skipMenuEidt() {
+                const _this = this
+                instance({
+                    method: 'get',
+                    url: "{{ config('wechat_reply.access_token_path') }}"
+                })
+                    .then(function (res) {
+                        if (res && res.access_token) {
+                            window.open(`https://wei.jiept.com/Home/Menu/${res.access_token}`)
+                        } else {
+                            _this.$message.error('appid有误')
+                        }
+                    })
             }
         }
     })
