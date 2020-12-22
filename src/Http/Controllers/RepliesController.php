@@ -24,8 +24,6 @@ class RepliesController extends Controller
     /**
      * 规则列表  目前展示所有  如果添加一个模糊  那么下面的查询就没必要了.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @throws InternalException
@@ -66,8 +64,6 @@ class RepliesController extends Controller
     /**
      * 规则详情.
      *
-     * @param Request $request
-     *
      * @return array
      *
      * @throws InternalException
@@ -92,8 +88,6 @@ class RepliesController extends Controller
 
     /**
      * 创建规则.
-     *
-     * @param Request $request
      *
      * @return array
      *
@@ -170,8 +164,6 @@ class RepliesController extends Controller
 
     /**
      * 编辑规则.
-     *
-     * @param Request $request
      *
      * @return array
      *
@@ -298,8 +290,6 @@ class RepliesController extends Controller
 
     /**
      * 删除.
-     *
-     * @param Request $request
      *
      * @return array
      *

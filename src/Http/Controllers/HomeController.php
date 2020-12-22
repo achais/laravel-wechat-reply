@@ -19,8 +19,6 @@ class HomeController extends Controller
     /**
      * Dashboard.
      *
-     * @param Request $request
-     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
@@ -30,8 +28,6 @@ class HomeController extends Controller
 
     /**
      * Login.
-     *
-     * @param Request $request
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
@@ -58,8 +54,6 @@ class HomeController extends Controller
 
     /**
      * Logout.
-     *
-     * @param Request $request
      *
      * @return \Illuminate\Http\RedirectResponse
      */
