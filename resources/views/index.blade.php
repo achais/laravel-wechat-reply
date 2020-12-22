@@ -664,7 +664,7 @@
                         if (res) {
                             window.open(`https://wei.jiept.com/Home/Menu/${res}`)
                         } else {
-                            _this.$message.error('appid有误')
+                            _this.$message.error('access_token为空无法自定义菜单')
                         }
                     })
             }
