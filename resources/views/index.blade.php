@@ -658,11 +658,11 @@
                 const _this = this
                 instance({
                     method: 'get',
-                    url: "{{ config('wechat_reply.access_token_path') }}"
+                    url: "{{ config('wechat_reply.access_token_url') }}"
                 })
                     .then(function (res) {
                         if (res) {
-                            window.open(`https://wei.jiept.com/Home/Menu/${res}`)
+                            window.open(`https://wei.jiept.com/Home/Menu/${res.data}`)
                         } else {
                             _this.$message.error('access_token为空无法自定义菜单')
                         }
