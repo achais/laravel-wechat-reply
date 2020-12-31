@@ -30,6 +30,8 @@ return [
 
     'path' => 'wechat-reply',
 
+    'access_token_url' => env('WECHAT_REPLY_ACCESS_TOKEN_URL', 'http://localhost'),
+
     'middleware' => ['web'],
 
     'auth' => [
