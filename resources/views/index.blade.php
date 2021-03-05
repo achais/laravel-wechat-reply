@@ -375,18 +375,18 @@
                 formRules: {
                     rule_name: [
                         {required: true, message: '请输入规则名', trigger: 'change'},
-                        {min: 1, max: 61, message: '规则名必须在1-60个字符内', trigger: 'change'}
+                        {min: 1, max: 60, message: '规则名必须在60个字符内', trigger: 'change'}
                     ],
                     keyword: [
                         {required: true, message: '请输入关键词', trigger: 'change'},
-                        {min: 1, max: 31, message: '关键词必须在1-30个字符内', trigger: 'change'}
+                        {min: 1, max: 30, message: '关键词必须在30个字符内', trigger: 'change'}
                     ],
                     replies: [
                         {required: true, validator: validateReplies, trigger: 'blur'}
                     ],
                     text_tmp: [
                         {required: true, message: '请输入回复内容', trigger: ['blur', 'change']},
-                        {min: 1, max: 301, message: '回复内容必须在1-300个字符内', trigger: ['blur', 'change']}
+                        {min: 1, max: 5000, message: '回复内容必须在5000个字符内', trigger: ['blur', 'change']}
                     ]
                 },
                 pagination: {
