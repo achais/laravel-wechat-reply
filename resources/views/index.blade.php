@@ -256,8 +256,8 @@
                               class="ruleEditDialog__keyword">
                         <el-select v-model="keyword.full_match" size="mini" slot="prepend"
                                    class="ruleEditDialog__select">
-                            <el-option label="半匹配" :value="false"></el-option>
                             <el-option label="全匹配" :value="true"></el-option>
+                            <el-option label="半匹配" :value="false"></el-option>
                         </el-select>
                     </el-input>
                 </div>
@@ -312,7 +312,7 @@
                class="addTextDialog">
         <el-form ref="addTextForm" :model="textForm">
             <el-form-item label="" prop="textTmp" :rules="formRules.text_tmp">
-                <el-input v-model="textForm.textTmp" type="textarea" :rows="5" resize="none" maxlength="300"
+                <el-input v-model="textForm.textTmp" type="textarea" :rows="10" resize="none" maxlength="5000"
                           show-word-limit
                           placeholder="请输入内容">
                 </el-input>
@@ -573,11 +573,11 @@
                 this.editType = 'add';
                 this.ruleEdit = {
                     rule_name: '',
-                    reply_mode: 'random',
+                    reply_mode: 'all',
                     keywords: [
                         {
                             keyword: '',
-                            full_match: false
+                            full_match: true
                         }
                     ],
                     replies: []
